@@ -52,4 +52,4 @@ jobs:
           app-name: 'news-agent-frontend'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D66A5BEA1B964408BF0263EF27D2D059 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9806D500B3C64E88AD9AFC2E6B7E3727 }}
