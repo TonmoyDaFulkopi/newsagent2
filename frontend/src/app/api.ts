@@ -1,6 +1,6 @@
 // API service for RMG News AI backend
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 // Add timeout to fetch requests with longer timeouts
 const fetchWithTimeout = async (url: string, options: RequestInit = {}, timeout: number = 30000) => {
