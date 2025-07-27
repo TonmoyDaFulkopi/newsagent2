@@ -8,7 +8,7 @@ on:
       - '.github/workflows/deploy-frontend.yml'
 
 env:
-  AZURE_WEBAPP_NAME: rmg-news-frontend
+  AZURE_WEBAPP_NAME: news-agent-frontend
   NODE_VERSION: '18'
 
 jobs:
