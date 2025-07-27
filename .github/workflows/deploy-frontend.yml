@@ -36,7 +36,7 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
-        NEXT_PUBLIC_API_URL: https://news-agent-backend-fbajbafba5fvaydj.centralindia-01.azurewebsites.net
+        NEXT_PUBLIC_API_URL: https://news-agent-backend-daahatf4gsf4cncw.centralindia-01.azurewebsites.net
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
