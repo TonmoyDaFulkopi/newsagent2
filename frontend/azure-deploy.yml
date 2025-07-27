@@ -1,0 +1,26 @@
+# Azure Web App deployment configuration for frontend
+# This file tells Azure how to build and deploy the Next.js frontend
+
+# Build configuration
+build:
+  # Set Node.js version
+  node_version: "18"
+  
+  # Build commands
+  commands:
+    - npm install
+    - npm run build
+    
+  # Output directory
+  output_dir: ".next"
+
+# Runtime configuration
+runtime:
+  # Use Node.js runtime
+  type: "node"
+  version: "18"
+
+# Environment variables (will be set in Azure portal)
+environment:
+  NODE_ENV: "production"
+  NEXT_PUBLIC_API_URL: "https://your-backend-url.azurewebsites.net" 

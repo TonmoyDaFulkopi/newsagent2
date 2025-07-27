@@ -73,6 +73,18 @@ export interface TrendingTopicsResponse {
   updated_at: string;
 }
 
+export interface MarketTrend {
+  id: number;
+  metric_name: string;
+  metric_value: number;
+  metric_unit?: string;
+  category: string;
+  time_period: string;
+  recorded_at: string;
+  source?: string;
+  confidence?: number;
+}
+
 export interface MarketInsightsResponse {
   sentiment_overview: {
     positive: string;
@@ -80,7 +92,7 @@ export interface MarketInsightsResponse {
     neutral: string;
   };
   trending_topics: Topic[];
-  market_trends: any[];
+  market_trends: MarketTrend[];
   total_articles: number;
   last_updated: string;
 }
@@ -151,7 +163,12 @@ export const api = {
   },
 
   // Fetch news from all sources
-  async fetchNewsFromSources(articlesPerSource: number = 15): Promise<any> {
+  async fetchNewsFromSources(articlesPerSource: number = 15): Promise<{
+    message: string;
+    results: Record<string, number>;
+    total_articles: number;
+    timestamp: string;
+  }> {
     console.log(`Fetching news from all sources: ${API_BASE_URL}/api/fetch-news`);
     
     const response = await fetchWithTimeout(`${API_BASE_URL}/api/fetch-news`, {

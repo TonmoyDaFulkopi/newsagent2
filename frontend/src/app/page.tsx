@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { api, NewsArticle, NewsSource, SourcesResponse } from './api'
+import { api, NewsArticle, NewsSource } from './api'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -232,21 +232,7 @@ export default function Home() {
     return `${diffInDays} days ago`
   }
 
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
-      case 'positive': return 'text-green-600'
-      case 'negative': return 'text-red-600'
-      default: return 'text-yellow-600'
-    }
-  }
-
-  const getSentimentLabel = (sentiment: string) => {
-    switch (sentiment.toLowerCase()) {
-      case 'positive': return 'Positive'
-      case 'negative': return 'Negative'
-      default: return 'Neutral'
-    }
-  }
+  // Removed unused sentiment functions
 
   if (loading && newsArticles.length === 0) {
     return (
@@ -385,7 +371,7 @@ export default function Home() {
                 ))}
               </div>
             ) : newsArticles.length > 0 ? (
-              newsArticles.map((article, index) => (
+              newsArticles.map((article) => (
                 <div key={article.id} className="news-card bg-white rounded-xl p-6 shadow-md border border-gray-200">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
