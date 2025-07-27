@@ -32,8 +32,6 @@ A sophisticated AI-powered news aggregation and analysis platform specifically d
 - **Agno** - AI framework for news analysis and insights
 - **Pandas** - Data manipulation and analysis
 
-
-
 ## 🚀 Quick Start
 
 ### Prerequisites
