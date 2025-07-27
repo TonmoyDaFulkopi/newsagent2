@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMG Industry News AI Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .news-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left-color: #667eea;
+        }
+        
+        .ai-insight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .category-chip {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .trending-indicator {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(255, 107, 107, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                        <span class="text-2xl">🏭</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">RMG News AI</h1>
+                        <p class="text-sm opacity-90">Intelligent Industry Insights</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+
+
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">AI Summaries</p>
+                        <p class="text-2xl font-bold text-gray-800">38</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <span class="text-purple-600 text-xl">🤖</span>
+                    </div>
+                </div>
+                <p class="text-blue-600 text-sm mt-2">Generated in real-time</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Market Sentiment</p>
+                        <p class="text-2xl font-bold text-green-600">Positive</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <span class="text-green-600 text-xl">📊</span>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm mt-2">Score: 7.2/10</p>
+            </div>
+            
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm">Trending Topics</p>
+                        <p class="text-2xl font-bold text-gray-800">12</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <span class="text-orange-600 text-xl">🔥</span>
+                    </div>
+                </div>
+                <p class="text-orange-600 text-sm mt-2">Updated hourly</p>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border mb-8">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap gap-2">
+                    <button class="category-chip px-4 py-2 rounded-full text-sm font-medium">All News</button>
+                    <button class="category-chip px-4 py-2 rounded-full text-sm font-medium">Supply Chain</button>
+                    <button class="category-chip px-4 py-2 rounded-full text-sm font-medium">Manufacturing</button>
+                    <button class="category-chip px-4 py-2 rounded-full text-sm font-medium">Trade Policy</button>
+                    <button class="category-chip px-4 py-2 rounded-full text-sm font-medium">Sustainability</button>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <input type="text" placeholder="Search news..." class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        🔍 Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main News Column -->
+            <div class="lg:col-span-2 space-y-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Latest Industry News</h2>
+                
+                <!-- Featured News -->
+                <div class="news-card bg-white rounded-xl p-6 shadow-sm border">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="trending-indicator px-2 py-1 rounded-full text-xs text-white font-medium">TRENDING</span>
+                            <span class="text-gray-600 text-sm">Just-style • 2 hours ago</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">🤖 AI Summarized</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Bangladesh RMG Exports Reach Record High in Q3 2025</h3>
+                    <p class="text-gray-600 mb-4">Bangladesh's ready-made garment exports have reached a record $42.8 billion in Q3 2025, marking a 15% increase from the previous quarter. The growth is attributed to increased demand from European markets and improved supply chain efficiency.</p>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="text-blue-600">🧠</span>
+                            <span class="text-blue-800 font-medium text-sm">AI Summary</span>
+                        </div>
+                        <p class="text-blue-800 text-sm">Key factors driving growth include improved labor productivity, investment in automation, and stronger EU trade relationships. AGiXT analysis suggests this trend will continue through Q4 2025.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Export Growth</span>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Bangladesh</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">EU Trade</span>
+                        </div>
+                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                    </div>
+                </div>
+
+                <!-- Regular News Cards -->
+                <div class="news-card bg-white rounded-xl p-6 shadow-sm border">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-600 text-sm">Textile World • 4 hours ago</span>
+                        <span class="text-gray-400 text-sm">🤖 AI Analyzed</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Sustainable Cotton Initiative Gains Momentum in Asian Markets</h3>
+                    <p class="text-gray-600 mb-4">Major textile manufacturers in Asia are adopting sustainable cotton practices, with organic cotton usage increasing by 28% this year...</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Sustainability</span>
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">Cotton</span>
+                        </div>
+                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                    </div>
+                </div>
+
+                <div class="news-card bg-white rounded-xl p-6 shadow-sm border">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-gray-600 text-sm">Sourcing Journal • 6 hours ago</span>
+                        <span class="text-gray-400 text-sm">🤖 AI Summarized</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Trade Policy Changes Impact Global Supply Chains</h3>
+                    <p class="text-gray-600 mb-4">New trade regulations affecting textile imports are reshaping global supply chain strategies for major fashion brands...</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Trade Policy</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Supply Chain</span>
+                        </div>
+                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Read More →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Trending Topics -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">🔥 Trending Topics</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Sustainable Manufacturing</span>
+                            <span class="text-green-600 text-sm">↑ 45%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Cotton Price Volatility</span>
+                            <span class="text-red-600 text-sm">↑ 32%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">EU Trade Relations</span>
+                            <span class="text-blue-600 text-sm">↑ 28%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Automation in Textiles</span>
+                            <span class="text-purple-600 text-sm">↑ 24%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Sentiment -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Market Sentiment</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Overall Sentiment</span>
+                                <span class="text-green-600 font-medium">Positive</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 72%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Supply Chain</span>
+                                <span class="text-yellow-600 font-medium">Neutral</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 58%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700">Trade Policy</span>
+                                <span class="text-red-600 font-medium">Negative</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-500 h-2 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold">RMG News AI</h3>
+                    <p class="text-gray-400 text-sm">Powered by AGiXT • Real-time Industry Intelligence</p>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <span class="text-gray-400 text-sm">Last Updated: Just now</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-400 text-sm">Live</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
